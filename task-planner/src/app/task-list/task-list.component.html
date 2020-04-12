@@ -4,8 +4,8 @@
   <label>Показывать завершённые задачи
     <input type="checkbox" (change)="filterTasks($event)"/>
   </label>
-<app-task-add (addTaskEmitter)="addTaskFromList($event)"></app-task-add>
-  <hr>
+  <app-task-add *ngIf="modifyTask == undefined" (addTaskEmitter)="addTaskFromList($event)"></app-task-add>
+  <app-edit-task  *ngIf="modifyTask !=  undefined" [task]="returnEditTask()" (canceledEmitter)="canceledEdit()" (editEmitter)="editTaskFromList($event)"></app-edit-task>
   <app-statistic [taskAll]="getTaskListsSize()" [taskPlanned]="getTasksAmountByStatus('Запланирована')"
                  [taskOverdue]="getTasksAmountByStatus('Просрочена')"
                  [taskFinished]="getTasksAmountByStatus('Завершена')"></app-statistic>
@@ -42,7 +42,6 @@
       <td>
         <button class="btn btn-danger" (click)="deleteTask(taskModel)">Удалить задачу</button>
         <button class="btn btn-success" (click)="editTask(taskModel)">Изменить задачу</button>
-
       </td>
     </tr>
 </ng-container>

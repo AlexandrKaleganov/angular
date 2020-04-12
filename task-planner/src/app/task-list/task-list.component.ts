@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../shared/model/task.model';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from '../shared/constant/date-time.constants';
-import { EventManager } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-list',
@@ -12,10 +9,9 @@ import { EventManager } from '@angular/platform-browser';
 export class TaskListComponent implements OnInit {
   taskModels: Task[] = [];
   taskFilter: boolean = false;
-  eventManager: EventManager;
+  modifyTask: Task;
 
-  constructor(eventManager: EventManager) {
-    this.eventManager = eventManager;
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -28,38 +24,38 @@ export class TaskListComponent implements OnInit {
         1,
         'task1',
         'category1',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15',
         'Завершена'
       ),
       new Task(2,
         'task2',
         'category2',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15',
       ),
       new Task(3,
         'task3',
         'category3',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15',
         'Просрочена'),
       new Task(4,
         'task4',
         'category4',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT)),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15'),
       new Task(5,
         'task5',
         'category5',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15',
         'Завершена'),
       new Task(6,
         'task6',
         'category6',
-        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
-        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        '2020-06-05T22:15',
+        '2020-06-06T22:15',
       ));
   }
 
@@ -93,24 +89,35 @@ export class TaskListComponent implements OnInit {
    * @param task
    */
   addTaskFromList(task: Task) {
-    if (task.id === undefined) {
-      task.id = this.taskModels.length + 1;
-      this.taskModels.push(task);
-    } else {
-      this.taskModels.forEach(t => {
-        if (t.id === task.id) {
-          t = task;
-        }
-      })
+    task.id = this.taskModels.length + 1;
+    this.taskModels.push(task);
+  }
+
+  editTaskFromList(task: Task) {
+    console.log(task.category);
+    for (let i = 0; i <this.taskModels.length ; i++) {
+      if (this.taskModels[i].id === task.id){
+        this.taskModels[i] = task;
+        break;
+      }
     }
+    this.modifyTask = undefined;
+  }
+
+  canceledEdit() {
+    this.modifyTask = undefined;
   }
 
   editTask(task: Task) {
-    console.log(task);
+    this.modifyTask = {...task};
   }
 
   getTaskListsSize() {
     return this.taskModels?.length;
+  }
+
+  returnEditTask() {
+    return this.modifyTask;
   }
 
   getTasksAmountByStatus(status: string) {

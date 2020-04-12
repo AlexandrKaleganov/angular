@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import {  STATUS_PLAN } from '../constant/status.constants';
 
 export class Task {
@@ -6,8 +5,8 @@ export class Task {
     public id?: number,
     public name?: string,
     public category?: string,
-    public dateStart?: Moment,
-    public dateEnd?: Moment,
+    public dateStart?: string,
+    public dateEnd?: string,
     public status: string = STATUS_PLAN
   ) {
 
