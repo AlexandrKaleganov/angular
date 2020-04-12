@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-statistic',
@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatisticComponent implements OnInit {
 
-  taskAll = 15;       // Всего задачь
-  taskPlanned = 5;    // Запланированно
-  taskOverdue = 5;   // Просрочено
-  taskFinished = 5;  // Выполненно
+  @Input() taskAll;       // Всего задачь
+  @Input() taskPlanned;    // Запланировано
+  @Input() taskOverdue;   // Просрочено
+  @Input() taskFinished;  // Выполнено
 
   constructor() {
   }

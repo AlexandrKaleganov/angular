@@ -11,7 +11,10 @@
     </button>
   </div>
   <hr>
-  <app-statistic></app-statistic>
+  <app-statistic [taskAll]="getTaskListsSize()" [taskPlanned]="getTasksAmountByStatus('Запланирована')"
+                 [taskOverdue]="getTasksAmountByStatus('Просрочена')"
+                 [taskFinished]="getTasksAmountByStatus('Завершена')"></app-statistic>
+
   <table class="table" *ngIf="taskModels != null && taskModels.length > 0">
     <thead class="table-dark">
     <tr>
@@ -22,9 +25,11 @@
       <th scope="col">Дата окончания</th>
       <th scope="col">Статус</th>
       <th scope="col">Завершить задачу</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
+
     <tr *ngFor="let taskModel of taskModels">
       <th scope="row">{{taskModel.id}}</th>
       <td>{{taskModel.name}}</td>
@@ -37,6 +42,8 @@
         <label>
           <input type="checkbox"  [checked]="taskModel.status" (change)="setStatus(taskModel)"/>
         </label>
+      </td>
+      <td><button class="btn btn-danger" (click)="deleteTask(taskModel)">Удалить задачу</button>
       </td>
     </tr>
     </tbody>
