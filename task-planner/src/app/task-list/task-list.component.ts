@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Task } from '../shared/model/task.model';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from '../shared/constant/date-time.constants';
+import { EventManager } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-list',
@@ -6,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-  taskModels: any = [];
-  taskFilter: boolean = true;
+  taskModels: Task[] = [];
+  taskFilter: boolean = false;
+  eventManager: EventManager;
 
-  constructor() {
+  constructor(eventManager: EventManager) {
+    this.eventManager = eventManager;
   }
 
   ngOnInit(): void {
@@ -18,59 +24,45 @@ export class TaskListComponent implements OnInit {
 
   initTaskModel() {
     this.taskModels.push(
-      {
-        id: '1',
-        name: 'task1',
-        category: 'category1',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Завершена'
-      },
-      {
-        id: '2',
-        name: 'task2',
-        category: 'category2',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Запланирована'
-      },
-      {
-        id: '3',
-        name: 'task3',
-        category: 'category3',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Просрочена'
-      },
-      {
-        id: '4',
-        name: 'task4',
-        category: 'category4',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Запланирована'
-      },
-      {
-        id: '5',
-        name: 'task5',
-        category: 'category5',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Завершена'
-      },
-      {
-        id: '6',
-        name: 'task6',
-        category: 'category6',
-        dateStart: '22:15 05.06.2020',
-        dateEnd: '22:15 06.06.2020',
-        status: 'Завершена'
-      });
+      new Task(
+        1,
+        'task1',
+        'category1',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        'Завершена'
+      ),
+      new Task(2,
+        'task2',
+        'category2',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+      ),
+      new Task(3,
+        'task3',
+        'category3',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        'Просрочена'),
+      new Task(4,
+        'task4',
+        'category4',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT)),
+      new Task(5,
+        'task5',
+        'category5',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+        'Завершена'),
+      new Task(6,
+        'task6',
+        'category6',
+        moment('2020-06-05 22:15 ', DATE_TIME_FORMAT),
+        moment('2020-06-06 22:15 ', DATE_TIME_FORMAT),
+      ));
   }
 
-  addTask() {
-    console.log('add Task');
-  }
 
   setStatus(object: any, $event) {
     if ($event.target.checked) {
@@ -94,6 +86,27 @@ export class TaskListComponent implements OnInit {
 
   deleteTask(tas: any) {
     this.taskModels = this.taskModels.filter(task => task.id !== tas.id);
+  }
+
+  /**
+   * добавление или изменение таска
+   * @param task
+   */
+  addTaskFromList(task: Task) {
+    if (task.id === undefined) {
+      task.id = this.taskModels.length + 1;
+      this.taskModels.push(task);
+    } else {
+      this.taskModels.forEach(t => {
+        if (t.id === task.id) {
+          t = task;
+        }
+      })
+    }
+  }
+
+  editTask(task: Task) {
+    console.log(task);
   }
 
   getTaskListsSize() {

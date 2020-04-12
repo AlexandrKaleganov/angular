@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+    <div class=" row">
+      <div class="col-auto">
+        <!--      id-->
+        <label for="inputId">ID</label>
+        <input disabled [(ngModel)]="task.id" id="inputId"/>
+      </div>
+      <div class="col-auto">
+        <!--name-->
+        <label for="name">name</label>
+        <input id="name" [(ngModel)]="task.name"/>
+      </div>
+      <div class="col-auto">
+        <!--category-->
+        <label for="category">category</label>
+        <select id="category" [(ngModel)]="task.category">
+          <option *ngFor="let category of categoryList" [ngValue]="category">{{category}}</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <!--dateStart-->
+        <label for="dateStart">dateStart</label>
+        <input type="datetime-local" id="dateStart" [(ngModel)]="task.dateStart"/>
+      </div>
+      <div class="col-auto">
+        <!--dateEnd-->
+        <label for="dateEnd">dateEnd</label>
+        <input required type="datetime-local" id="dateEnd" [(ngModel)]="task.dateEnd"/>
+      </div>
+      <div class="col-auto">
+        <!--status-->
+        <label for="status">status</label>
+        <select id="status" [(ngModel)]="task.status">
+          <option *ngFor="let status of statusList" [ngValue]="status">{{status}}</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="button"
+                class="btn btn-success" (click)="addTask()"> Добавить задачу
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
