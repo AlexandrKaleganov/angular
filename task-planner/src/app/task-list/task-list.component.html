@@ -2,7 +2,7 @@
 
   <h1 class="text-center">Список задачь</h1>
   <label>Показывать завершённые задачи
-    <input type="checkbox"  checked (change)="filterTasks($event)"/>
+    <input type="checkbox" checked (change)="filterTasks($event)"/>
   </label>
   <div class="text-right">
 
@@ -29,23 +29,26 @@
     </tr>
     </thead>
     <tbody>
-
-    <tr *ngFor="let taskModel of taskModels">
+<ng-container *ngFor="let taskModel of taskModels">
+    <tr *ngIf="isViews(taskModel)">
       <th scope="row">{{taskModel.id}}</th>
       <td>{{taskModel.name}}</td>
       <td>{{taskModel.category}}</td>
       <td>{{taskModel.dateStart}}</td>
       <td>{{taskModel.dateEnd}}</td>
-      <td>{{taskModel.status?'Завершена': 'Открыта'}}</td>
-      <td >
+      <td
+        [ngStyle]="{'background-color': taskModel.status == 'Завершена'? '#c5efb0' : taskModel.status == 'Просрочена'? '#e48585':'#5995d2'}">{{taskModel.status}}</td>
+      <td>
 
         <label>
-          <input type="checkbox"  [checked]="taskModel.status" (change)="setStatus(taskModel)"/>
+          <input type="checkbox" [checked]="taskModel.status == 'Завершена'" (change)="setStatus(taskModel, $event)"/>
         </label>
       </td>
-      <td><button class="btn btn-danger" (click)="deleteTask(taskModel)">Удалить задачу</button>
+      <td>
+        <button class="btn btn-danger" (click)="deleteTask(taskModel)">Удалить задачу</button>
       </td>
     </tr>
+</ng-container>
     </tbody>
   </table>
 </div>
