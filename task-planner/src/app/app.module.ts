@@ -9,6 +9,8 @@ import { StatisticComponent } from './task-list/statistic/statistic.component';
 import { TaskAddComponent } from './task-list/task-add/task-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditTaskComponent } from './task-list/edit-task/edit-task.component';
+import { LodDirective } from './shared/directive/lod.directive';
+import { DateInputDirective } from './shared/directive/date-input.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { EditTaskComponent } from './task-list/edit-task/edit-task.component';
     StatisticComponent,
     TaskAddComponent,
     EditTaskComponent,
+    LodDirective,
+    DateInputDirective,
   ],
   imports: [
     BrowserModule,

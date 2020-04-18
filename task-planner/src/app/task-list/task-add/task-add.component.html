@@ -1,15 +1,15 @@
-<div class="card">
+<div class="card" >
   <div class="card-body">
     <div class=" row">
       <div class="col-auto">
         <!--      id-->
         <label for="inputId">ID</label>
-        <input disabled [(ngModel)]="task.id" id="inputId"/>
+         <input appDateInput  disabled [(ngModel)]="task.id" id="inputId"/>
       </div>
       <div class="col-auto">
         <!--name-->
         <label for="name">name</label>
-        <input id="name" [(ngModel)]="task.name"/>
+         <input appDateInput  id="name" [(ngModel)]="task.name"/>
       </div>
       <div class="col-auto">
         <!--category-->
@@ -21,12 +21,12 @@
       <div class="col-auto">
         <!--dateStart-->
         <label for="dateStart">dateStart</label>
-        <input type="datetime-local" id="dateStart" [(ngModel)]="task.dateStart"/>
+         <input appDateInput  type="datetime-local" id="dateStart" [(ngModel)]="task.dateStart"/>
       </div>
       <div class="col-auto">
         <!--dateEnd-->
         <label for="dateEnd">dateEnd</label>
-        <input required type="datetime-local" id="dateEnd" [(ngModel)]="task.dateEnd"/>
+         <input appDateInput  required type="datetime-local" id="dateEnd" [(ngModel)]="task.dateEnd"/>
       </div>
       <div class="col-auto">
         <!--status-->
