@@ -32,7 +32,7 @@
 <ng-container *ngFor="let taskModel of taskModels">
     <tr *ngIf="isViews(taskModel)" >
       <th scope="row">{{taskModel.id}}</th>
-      <td>{{taskModel.name}}</td>
+      <td>{{taskModel.name|myTitleCase}}</td>
       <td>{{taskModel.category}}</td>
       <td>{{taskModel.dateStart}}</td>
       <td>{{taskModel.dateEnd}}</td>
