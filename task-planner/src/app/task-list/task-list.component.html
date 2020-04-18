@@ -5,11 +5,16 @@
     <input type="checkbox" (change)="filterTasks($event)"/>
   </label>
   <app-task-add *ngIf="modifyTask == undefined" (addTaskEmitter)="addTaskFromList($event)"></app-task-add>
-  <app-edit-task  *ngIf="modifyTask !=  undefined" [task]="returnEditTask()" (canceledEmitter)="canceledEdit()" (editEmitter)="editTaskFromList($event)"></app-edit-task>
+  <app-edit-task  *ngIf="modifyTask !=  undefined" [task]="returnEditTask()" (canceledEmitter)="canceledEdit()" (submitErrorMessage)="initMessage($event)" (editEmitter)="editTaskFromList($event)"></app-edit-task>
   <app-statistic [taskAll]="getTaskListsSize()" [taskPlanned]="getTasksAmountByStatus('Запланирована')"
                  [taskOverdue]="getTasksAmountByStatus('Просрочена')"
                  [taskFinished]="getTasksAmountByStatus('Завершена')"></app-statistic>
-
+  <div *ngIf="errorMessage!=null && errorMessage!=undefined" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Внимание ! ошибка!</strong> {{errorMessage}}
+    <button type="button" (click)="clearMessage()" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <table class="table" *ngIf="taskModels != null && taskModels.length > 0">
     <thead class="table-dark">
     <tr >
