@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Task } from '../shared/model/task.model';
+import {Component, OnInit} from '@angular/core';
+import {Task} from '../shared/model/task.model';
+import {HelpService} from "../shared/services/help.service";
 
 @Component({
   selector: 'app-task-list',
@@ -11,7 +12,10 @@ export class TaskListComponent implements OnInit {
   taskFilter: boolean = false;
   modifyTask: Task;
   errorMessage: string;
-  constructor() {
+  helpService: HelpService;
+
+  constructor(helpService: HelpService) {
+    this.helpService = helpService;
   }
 
   ngOnInit(): void {
@@ -53,8 +57,8 @@ export class TaskListComponent implements OnInit {
 
   editTaskFromList(task: Task) {
     console.log(task.category);
-    for (let i = 0; i <this.taskModels.length ; i++) {
-      if (this.taskModels[i].id === task.id){
+    for (let i = 0; i < this.taskModels.length; i++) {
+      if (this.taskModels[i].id === task.id) {
         this.taskModels[i] = task;
         break;
       }
@@ -77,56 +81,21 @@ export class TaskListComponent implements OnInit {
   returnEditTask() {
     return this.modifyTask;
   }
-  initMessage(message:string) {
+
+  initMessage(message: string) {
     console.log(message);
     this.errorMessage = message;
   }
+
   clearMessage() {
     this.errorMessage = undefined;
   }
+
   getTasksAmountByStatus(status: string) {
     return this.taskModels.filter(task => task.status === status)?.length;
   }
 
-
   initTaskModel() {
-    this.taskModels.push(
-      new Task(
-        1,
-        'task1',
-        'category1',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15',
-        'Завершена'
-      ),
-      new Task(2,
-        'task2',
-        'category2',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15',
-      ),
-      new Task(3,
-        'task3',
-        'category3',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15',
-        'Просрочена'),
-      new Task(4,
-        'task4',
-        'category4',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15'),
-      new Task(5,
-        'task5',
-        'category5',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15',
-        'Завершена'),
-      new Task(6,
-        'task6',
-        'category6',
-        '2020-06-05T22:15',
-        '2020-06-06T22:15',
-      ));
+    this.helpService.initTaskModel(this.taskModels);
   }
 }

@@ -5,4 +5,5 @@ describe('DateInputDirective', () => {
     const directive = new DateInputDirective();
     expect(directive).toBeTruthy();
   });
+
 });
