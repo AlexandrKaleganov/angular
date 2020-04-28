@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from '../shared/model/task.model';
-import {HelpService} from "../shared/services/help.service";
+import {HelpService} from '../shared/services/help.service';
+import {RestService} from "../shared/services/rest.service";
 
 @Component({
   selector: 'app-task-list',
@@ -13,13 +14,34 @@ export class TaskListComponent implements OnInit {
   modifyTask: Task;
   errorMessage: string;
   helpService: HelpService;
+  restService: RestService;
+  isAdd: boolean = true;
 
-  constructor(helpService: HelpService) {
+  constructor(helpService: HelpService, restService: RestService) {
     this.helpService = helpService;
+    this.restService = restService;
   }
 
   ngOnInit(): void {
     this.initTaskModel();
+    this.initSubscribe();
+  }
+
+  initSubscribe() {
+    this.restService.dataUpdate$.subscribe((data: Task) => {
+      this.addTaskFromList(data);
+    });
+    this.restService.map$.subscribe((map: Map<any, any>) => {
+      if (map.has('errorMessage')) {
+        this.initMessage(map.get('errorMessage'));
+      }
+      if (map.has('editTask')) {
+        this.editTaskFromList(map.get('editTask'));
+      }
+      if (map.has('cancelEdit')) {
+        this.canceledEdit();
+      }
+    });
   }
 
   setStatus(object: any, $event) {
@@ -63,14 +85,16 @@ export class TaskListComponent implements OnInit {
         break;
       }
     }
-    this.modifyTask = undefined;
+    this.isAdd = true;
   }
 
   canceledEdit() {
-    this.modifyTask = undefined;
+    this.isAdd = true;
+    console.log('this.modifyTask = ' + this.modifyTask);
   }
 
   editTask(task: Task) {
+    this.isAdd = false;
     this.modifyTask = {...task};
   }
 
@@ -85,6 +109,7 @@ export class TaskListComponent implements OnInit {
   initMessage(message: string) {
     console.log(message);
     this.errorMessage = message;
+    this.isAdd = true;
   }
 
   clearMessage() {

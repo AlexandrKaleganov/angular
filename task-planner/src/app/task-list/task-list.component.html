@@ -4,8 +4,11 @@
   <label>Показывать завершённые задачи
     <input type="checkbox" (change)="filterTasks($event)"/>
   </label>
-  <app-task-add *ngIf="modifyTask == undefined" (addTaskEmitter)="addTaskFromList($event)"></app-task-add>
-  <app-edit-task  *ngIf="modifyTask !=  undefined" [task]="returnEditTask()" (canceledEmitter)="canceledEdit()" (submitErrorMessage)="initMessage($event)" (editEmitter)="editTaskFromList($event)"></app-edit-task>
+  <app-task-add *ngIf="isAdd"
+
+  ></app-task-add>
+<!--  (addTaskEmitter)="addTaskFromList($event)"-->
+  <app-edit-task  *ngIf="!isAdd" [task]="returnEditTask()" ></app-edit-task>
   <app-statistic [taskAll]="getTaskListsSize()" [taskPlanned]="getTasksAmountByStatus('Запланирована')"
                  [taskOverdue]="getTasksAmountByStatus('Просрочена')"
                  [taskFinished]="getTasksAmountByStatus('Завершена')"></app-statistic>
