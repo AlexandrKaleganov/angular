@@ -12,7 +12,13 @@ import { EditTaskComponent } from './task-list/edit-task/edit-task.component';
 import { LodDirective } from './shared/directive/lod.directive';
 import { DateInputDirective } from './shared/directive/date-input.directive';
 import { MyTitleCasePipe } from './shared/pipe/my-title-case.pipe';
-
+import { NoteListComponent } from './note-list/note-list.component';
+import {RouterModule, Routes} from '@angular/router';
+const routes:Routes = [
+  {path:'', redirectTo:'taskList', pathMatch:"full"},
+  {path:'taskList', component: TaskListComponent},
+  {path: 'noteList', component: NoteListComponent}
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,12 +30,13 @@ import { MyTitleCasePipe } from './shared/pipe/my-title-case.pipe';
     LodDirective,
     DateInputDirective,
     MyTitleCasePipe,
+    NoteListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule, RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

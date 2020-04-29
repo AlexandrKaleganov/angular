@@ -1,8 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
-.set_border {
-  border-color: springgreen!important;
-}
-.set_border_two {
-  border-color: firebrick!important;
-}

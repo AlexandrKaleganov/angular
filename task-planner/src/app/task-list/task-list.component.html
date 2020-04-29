@@ -7,6 +7,7 @@
   <app-task-add *ngIf="isAdd"
 
   ></app-task-add>
+
 <!--  (addTaskEmitter)="addTaskFromList($event)"-->
   <app-edit-task  *ngIf="!isAdd" [task]="returnEditTask()" ></app-edit-task>
   <app-statistic [taskAll]="getTaskListsSize()" [taskPlanned]="getTasksAmountByStatus('Запланирована')"
