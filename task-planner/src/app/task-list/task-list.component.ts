@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Task} from '../shared/model/task.model';
 import {HelpService} from '../shared/services/help.service';
 import {RestService} from "../shared/services/rest.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -16,10 +17,11 @@ export class TaskListComponent implements OnInit {
   helpService: HelpService;
   restService: RestService;
   isAdd: boolean = true;
-
-  constructor(helpService: HelpService, restService: RestService) {
+router:Router;
+  constructor(helpService: HelpService, restService: RestService, router: Router) {
     this.helpService = helpService;
     this.restService = restService;
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -122,5 +124,13 @@ export class TaskListComponent implements OnInit {
 
   initTaskModel() {
     this.helpService.initTaskModel(this.taskModels);
+  }
+  viewTask(task: Task) {
+    this.router.navigate(['taskList', task.id, 'view' ],
+      {
+        queryParams:{
+          task: task
+        }
+      })
   }
 }

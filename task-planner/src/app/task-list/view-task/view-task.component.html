@@ -1,0 +1,46 @@
+<div class="card" >
+  <div class="card-body" >
+    <div class=" row">
+      <div   class="col-auto">
+        <!--      id-->
+        <label for="inputId">ID</label>
+        <input disabled [(ngModel)]="task.id" id="inputId"/>
+      </div>
+      <div class="col-auto">
+        <!--name-->
+        <label for="name" >name</label>
+        <input id="name" [(ngModel)]="task.name" disabled/>
+      </div>
+      <div class="col-auto">
+        <!--category-->
+        <label for="category">category</label>
+        <select id="category" [(ngModel)]="task.category" disabled>
+          <option *ngIf="task.category != undefined" [defaultSelected]="task.category">{{task.category}}</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <!--dateStart-->
+        <label for="dateStart">dateStart</label>
+        <input type="datetime-local" id="dateStart" [(ngModel)]="task.dateStart" disabled/>
+      </div>
+      <div class="col-auto">
+        <!--dateEnd-->
+        <label for="dateEnd">dateEnd</label>
+        <input required type="datetime-local" id="dateEnd" [(ngModel)]="task.dateEnd" disabled/>
+      </div>
+      <div class="col-auto">
+        <!--status-->
+        <label for="status">status</label>
+        <select id="status" [(ngModel)]="task.status">
+          <option *ngIf="task.status != undefined" [defaultSelected]="task.status">{{task.status}}</option>
+        </select>
+      </div>
+      <div class="col-auto">
+
+        <button type="button"
+                class="btn btn-primary" (click)="canceled()">Назад
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
