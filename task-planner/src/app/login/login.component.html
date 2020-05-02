@@ -1,0 +1,14 @@
+<div class="form-4">
+  <p>
+    <label for="login">Логин </label>
+    <input [(ngModel)]="user.login" type="text" name="login" id="login" placeholder="Логин или email" required>
+  </p>
+  <p>
+    <label for="password">Пароль</label>
+    <input [(ngModel)]="user.password" type="password" name='password' id="password" placeholder="Пароль" required>
+  </p>
+
+  <p>
+    <button (click)="auth()" type="button" name="submit">Вход</button>
+  </p>
+</div>
